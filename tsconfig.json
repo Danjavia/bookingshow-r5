@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
     "target": "es5",
     "lib": [
       "dom",
@@ -18,9 +19,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "paths": {
+      "@application/*": ["src/application/*"],
+      "@domain/*": ["src/domain/*"],
+      "@infrastructure/*": ["src/infrastructure/*"],
+      "@routes/*": ["src/routes/*"],
+      "@presentation/*": ["src/presentation/*"],
+      "@pages/*": ["src/pages/*"],
+      "@config/*": ["src/config/*"]
+    }
   },
   "include": [
     "src"
-  ]
+  ],
 }
