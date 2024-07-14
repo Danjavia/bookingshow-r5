@@ -7,7 +7,7 @@ import { googleBooksRepository } from "@infrastructure/repositories/googleBooksR
 import { openLibraryRepository } from "@infrastructure/repositories/openLibraryRepository";
 import { commentRepository } from "@infrastructure/repositories/localStorageRepository";
 
-interface BookState {
+export interface BookState {
   books: Book[];
   selectedBook: Book | null;
   comments: Record<string, Comment[]>;
@@ -38,7 +38,7 @@ export const useBookStore = create<BookState>((set, get) => {
     addComment: async (bookId, commentText) => {
       await commentService.addComment(bookId, commentText);
       const comments = await commentService.getComments(bookId);
-      set((state) => ({
+      set((state: BookState) => ({
         comments: { ...state.comments, [bookId]: comments },
       }));
     },

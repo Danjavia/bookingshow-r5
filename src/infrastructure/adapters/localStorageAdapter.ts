@@ -2,7 +2,7 @@ import { CommentRepositoryPort } from "@domain/ports/CommentRepositoryPort";
 import { Comment, CommentSchema } from "@domain/entities/Comment";
 
 export class LocalStorageAdapter implements CommentRepositoryPort {
-  private readonly COMMENTS_KEY = "biblioteca_comments";
+  private readonly COMMENTS_KEY = "comments";
 
   async getComments(bookId: string): Promise<Comment[]> {
     const commentsJson = localStorage.getItem(this.COMMENTS_KEY);

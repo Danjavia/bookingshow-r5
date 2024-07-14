@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useBookStore } from "@application/store/bookStore";
+import { BookState, useBookStore } from "@application/store/bookStore";
 
 interface CommentFormProps {
   bookId: string;
@@ -7,7 +7,7 @@ interface CommentFormProps {
 
 const CommentForm: React.FC<CommentFormProps> = ({ bookId }) => {
   const [comment, setComment] = useState("");
-  const addComment = useBookStore((state) => state.addComment);
+  const addComment = useBookStore((state: BookState) => state.addComment);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

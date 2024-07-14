@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useBookStore } from "@application/store/bookStore";
 import BookList from "@presentation/components/BookList/BookList";
+import HeroComponent from "@presentation/components/Hero/Hero";
 
 const Home: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -12,7 +13,8 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Google Books Search</h1>
+      <HeroComponent />
+
       <input
         type="text"
         value={query}
