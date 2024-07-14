@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "@presentation/assets/images/logo.png";
+import Logo from "@assets/images/logo.png";
 
 const Header = () => {
   const [expanded, setExpanded] = useState(false);

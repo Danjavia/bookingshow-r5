@@ -27,7 +27,8 @@
       "@routes/*": ["src/routes/*"],
       "@presentation/*": ["src/presentation/*"],
       "@pages/*": ["src/pages/*"],
-      "@config/*": ["src/config/*"]
+      "@config/*": ["src/config/*"],
+      "@assets/*": ["src/assets/*"]
     }
   },
   "include": [

@@ -1,20 +1,14 @@
 import React from "react";
-import R5 from "@presentation/assets/images/grupor5.jpg";
-import Logo from "@presentation/assets/images/logo.png";
-import GithubIcon from "@presentation/components/Icons/GithubIcon";
+import R5 from "@assets/images/grupor5.jpg";
+import Logo from "@assets/images/logo.png";
 import GithubLink from "@presentation/components/Common/GithubLink";
 
 const Footer = () => {
   return (
     <footer className="text-gray-500 bg-gray-900 body-font">
-      <div className="container px-5 py-4 mx-auto flex items-center justify-between">
+      <div className="max-w-screen-xl px-5 py-4 mx-auto flex items-center justify-between">
         <div className="flex-1">
-          <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
-            <img src={Logo} alt="BookingShow Logo" className="h-4 w-auto" />
-          </a>
-        </div>
-        <div className="flex-1">
-          <p className="text-sm text-center text-gray-400 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4 flex items-center">
+          <p className="text-sm text-gray-400 sm:py-2 sm:mt-0 mt-4 flex items-center font-semibold">
             Crafted with{" "}
             <span className="text-red-600 mx-1">
               <svg

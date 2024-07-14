@@ -1,30 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useBookStore } from "@application/store/bookStore";
 import BookList from "@presentation/components/BookList/BookList";
-import BookDetail from "@presentation/components/BookDetail/BookDetail";
+import HeroComponent from "@presentation/components/Hero/Hero";
 
 const Bookstore: React.FC = () => {
-  const [query, setQuery] = useState("");
-  const { books, searchBooks, selectedBook } = useBookStore();
+  const { books, searchBooks } = useBookStore();
+  const fetchInitialData = async () =>
+    await searchBooks("React JS", "openLibrary");
 
-  const handleSearch = () => {
-    searchBooks(query, "openLibrary");
-  };
+  useEffect(() => {
+    void fetchInitialData();
+  }, []);
 
   return (
     <div>
-      <h1>Open Library Bookstore</h1>
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for books"
-      />
-      <button onClick={handleSearch}>Search</button>
-      <div style={{ display: "flex" }}>
-        <BookList books={books} />
-        {selectedBook && <BookDetail book={selectedBook} />}
-      </div>
+      <HeroComponent />
+      <BookList books={books} />
     </div>
   );
 };

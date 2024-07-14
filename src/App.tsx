@@ -9,7 +9,7 @@ import AppRoutes from "@routes/AppRoutes";
 const App = () => {
   return (
     <Router>
-      <div className="flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen bg-gray-200">
         <Header />
         <main className="flex-grow w-full mx-auto">
           <AppRoutes />

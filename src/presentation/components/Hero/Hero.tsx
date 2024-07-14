@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useBookStore } from "@application/store/bookStore";
-import Lottie from "lottie-react";
-import BookAnimation from "@presentation/assets/animations/book.json";
+import EbookImage from "@assets/images/ebook.png";
 
 const HeroComponent = () => {
   const [query, setQuery] = useState("");
   const { searchBooks } = useBookStore();
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    searchBooks(query, "google");
-  };
+  const handleFormSearch = async (e: React.FormEvent<HTMLFormElement>) =>
+    await searchBooks(query, "google");
 
   return (
     <section className="relative py-12 overflow-hidden bg-black sm:pb-16 lg:pb-20 xl:pb-24">
@@ -27,7 +24,7 @@ const HeroComponent = () => {
             </p>
 
             <form
-              onSubmit={handleSearch}
+              onSubmit={handleFormSearch}
               className="relative mt-8 rounded-full sm:mt-12"
             >
               <div className="relative">
@@ -39,7 +36,7 @@ const HeroComponent = () => {
                   <input
                     type="text"
                     placeholder="Try Rust, Go, React Dev etc."
-                    className="block w-full py-4 pr-6 text-white placeholder-gray-500 bg-black border border-transparent rounded-full pl-14 sm:py-5 focus:border-transparent focus:ring-0"
+                    className="block w-full py-4 pr-6 text-white text-2xl font-semibold placeholder-gray-500 bg-black border border-transparent rounded-full pl-8 sm:py-5 focus:border-transparent focus:ring-0"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                   />
@@ -102,7 +99,11 @@ const HeroComponent = () => {
             </div>
 
             <div className="relative w-full max-w-md mx-auto">
-              <Lottie animationData={BookAnimation} />
+              <img
+                src={EbookImage}
+                alt="Ebook Image"
+                className="animate-bounce animate-infinite animate-duration-[4000ms] animate-delay-500 animate-ease-in-out"
+              />
             </div>
           </div>
         </div>
