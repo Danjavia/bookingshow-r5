@@ -1,5 +1,5 @@
-import GithubIcon from "@presentation/components/Icons/GithubIcon";
 import React from "react";
+import GithubIcon from "@assets/icons/GithubIcon";
 
 const GithubLink = () => {
   return (

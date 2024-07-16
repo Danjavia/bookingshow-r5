@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useBookStore } from "@application/store/bookStore";
 import EbookImage from "@assets/images/ebook.png";
 
-const HeroComponent = () => {
+const HeroComponent = ({ source = "google" }: { source?: string }) => {
   const [query, setQuery] = useState("");
   const { searchBooks } = useBookStore();
 
-  const handleFormSearch = async (e: React.FormEvent<HTMLFormElement>) =>
-    await searchBooks(query, "google");
+  const handleFormSearch = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await searchBooks(query, source);
+  };
 
   return (
     <section className="relative py-12 overflow-hidden bg-black sm:pb-16 lg:pb-20 xl:pb-24">

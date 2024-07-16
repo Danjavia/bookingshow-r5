@@ -14,7 +14,7 @@ const Bookstore: React.FC = () => {
 
   return (
     <div>
-      <HeroComponent />
+      <HeroComponent source="openLibrary" />
       <BookList books={books} />
     </div>
   );
