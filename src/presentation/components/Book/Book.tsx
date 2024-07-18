@@ -2,6 +2,7 @@ import React from "react";
 import { Book as BookType } from "@domain/entities/Book";
 import "./book.css";
 import { Link, useLocation } from "react-router-dom";
+import { validPaths } from "@config/constants";
 
 const Book = ({
   onSelectBook,
@@ -11,7 +12,7 @@ const Book = ({
   book: BookType;
 }) => {
   const location = useLocation();
-  const isBookstorePath = location.pathname === "/bookstore";
+  const isBookstorePath = validPaths.includes(location.pathname);
 
   return (
     <Link

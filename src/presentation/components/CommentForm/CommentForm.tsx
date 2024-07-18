@@ -28,8 +28,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ bookId }) => {
           placeholder="Write a comment..."
           className="px-3 text-sm py-1 mt-2 outline-none border-gray-300 w-full resize-none border rounded-lg placeholder:text-sm"
         />
-        <div className="flex justify-between mt-2 items-center">
-          <p className="text-sm text-blue-900 ">Enter at least 15 characters</p>
+        <div className="flex justify-end mt-2 items-center">
           <button
             type="submit"
             className="h-12 w-[150px] bg-blue-400 text-sm text-white rounded-lg transition-all cursor-pointer hover:bg-blue-600"

@@ -11,7 +11,6 @@ export class FavoriteLocalStorageAdapter implements FavoriteRepositoryPort {
   }
 
   async addFavorite(book: Book): Promise<void> {
-    console.log("Favo Book ==>", book);
     const favorites = await this.getFavorites();
     if (!favorites.some((fav) => fav.id === book.id)) {
       favorites.push(book);

@@ -7,11 +7,14 @@ export class CommentLocalStorageAdapter implements CommentRepositoryPort {
   async getComments(bookId: string): Promise<Comment[]> {
     const commentsJson = localStorage.getItem(this.COMMENTS_KEY);
     if (!commentsJson) return [];
-    const allComments = JSON.parse(commentsJson);
-    const bookComments = allComments[bookId].map((comment: Comment) => ({
-      ...comment,
-      createdAt: new Date(comment.createdAt),
-    }));
+    const allComments = JSON.parse(commentsJson) ?? [];
+    const bookComments =
+      allComments && allComments[bookId]
+        ? allComments[bookId].map((comment: Comment) => ({
+            ...comment,
+            createdAt: new Date(comment.createdAt),
+          }))
+        : [];
     return CommentSchema.array().parse(bookComments || []);
   }
 

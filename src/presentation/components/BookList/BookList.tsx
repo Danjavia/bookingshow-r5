@@ -5,10 +5,9 @@ import { useBookStore } from "@application/store/bookStore";
 
 interface BooksProps {
   books: BookType[];
-  onSelectBook?: (book: BookType) => void;
 }
 
-const BookList: React.FC<BooksProps> = ({ books, onSelectBook }) => {
+const BookList: React.FC<BooksProps> = ({ books }) => {
   const { selectBook } = useBookStore();
 
   return (

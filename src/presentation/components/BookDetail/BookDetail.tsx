@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 
 const BookDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const [isOnFavorite, setIsOnFavorite] = React.useState(false);
 
   const {
     addToFavorites,
@@ -15,28 +16,36 @@ const BookDetail: React.FC = () => {
     isFavorite,
     comments,
     getBookDetails,
+    loadFavorites,
+    loadComments,
   } = useBookStore();
 
   useEffect(() => {
-    getBook();
+    void getBook();
   }, []);
 
-  const toggleFavorite = () => {
-    if (isFavorite(selectedBook.id)) {
+  const toggleFavorite = async () => {
+    if (await isFavorite(selectedBook.id)) {
       removeFromFavorites(selectedBook.id);
     } else {
       addToFavorites(selectedBook);
     }
   };
 
-  const getBook = () => {
+  const getBook = async () => {
     if (id) {
       getBookDetails(id, "openLibrary");
+      loadFavorites();
+      loadComments(id);
     }
   };
 
   if (!selectedBook) {
-    return <div>Cargando...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center font-bold text-2xl">
+        Loading...
+      </div>
+    );
   }
 
   return (

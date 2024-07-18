@@ -49,7 +49,7 @@ export class OpenLibraryAdapter implements BookRepositoryPort {
           `https://openlibrary.org${workId}.json`,
         );
         return (
-          descriptionResponse.data.description.value ||
+          descriptionResponse.data?.description?.value ||
           "No description available"
         );
       } catch (error) {
@@ -67,8 +67,6 @@ export class OpenLibraryAdapter implements BookRepositoryPort {
 
     const authors = await getAuthorNames(response.data.authors);
     const description = await getDescription(response.data.key);
-
-    console.log(authors, description);
 
     return BookSchema.parse({
       id: response.data.key.replace("/works/", ""),

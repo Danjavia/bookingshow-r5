@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "@assets/images/logo.png";
 import { menu } from "@config/paths";
 import { HeartIcon } from "@assets/icons/HeartIcon";
+import { useBookStore } from "@application/store/bookStore";
 
 const Header = () => {
+  const { favorites, loadFavorites } = useBookStore();
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    loadFavorites();
+  }, []);
 
   return (
     <header className="py-4 bg-black sm:py-6">
@@ -69,17 +75,19 @@ const Header = () => {
             ))}
           </nav>
 
-          <div className="relative hidden md:items-center md:justify-center md:inline-flex group">
-            <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-cyan-500 to-purple-500 group-hover:shadow-lg group-hover:shadow-cyan-500/50"></div>
-            <a
-              href="#"
-              className="relative inline-flex items-center justify-center px-6 py-2 text-base font-semibold text-white bg-black border border-transparent rounded-full"
-              role="button"
-            >
-              View my favorites
-              <HeartIcon />
-            </a>
-          </div>
+          {favorites.length > 0 && (
+            <div className="relative hidden md:items-center md:justify-center md:inline-flex group">
+              <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-cyan-500 to-purple-500 group-hover:shadow-lg group-hover:shadow-cyan-500/50"></div>
+              <a
+                href="/favorites"
+                className="relative inline-flex items-center justify-center px-6 py-2 text-base font-semibold text-white bg-black border border-transparent rounded-full"
+                role="button"
+              >
+                View my favorites
+                <HeartIcon />
+              </a>
+            </div>
+          )}
         </div>
 
         {expanded && (

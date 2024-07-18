@@ -26,6 +26,7 @@ export interface BookState {
   removeFromFavorites: (id: string) => void;
   isFavorite: (id: string) => boolean;
   loadFavorites: () => void;
+  loadComments: (id: string) => void;
 }
 
 export const useBookStore = create<BookState>((set, get) => {
@@ -40,10 +41,15 @@ export const useBookStore = create<BookState>((set, get) => {
     },
     getBookDetails: async (id, source) => {
       const book = await bookService.getBookDetails(id, source);
-      console.log("THE BOOK ==>", book);
       set({ selectedBook: book });
     },
     selectBook: (book) => set({ selectedBook: book }),
+    loadComments: async (bookId) => {
+      const comments = await commentService.getComments(bookId);
+      set((state: BookState) => ({
+        comments: { ...state.comments, [bookId]: comments },
+      }));
+    },
     addComment: async (bookId, commentText) => {
       await commentService.addComment(bookId, commentText);
       const comments = await commentService.getComments(bookId);
