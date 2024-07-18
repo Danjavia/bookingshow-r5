@@ -12,7 +12,7 @@ const Footer = () => {
             Crafted with <HeartIcon />
             <a
               className="mx-1"
-              href="https://github.com/danjavia/bookstore"
+              href="https://github.com/Danjavia/bookingshow-r5"
               target="_blank"
               rel="noopener noreferrer"
             >
