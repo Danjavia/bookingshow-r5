@@ -54,7 +54,7 @@ const Book = ({
           />
         ) : (
           <img
-            src="https://picsum.photos/200/260"
+            src="https://placehold.co/200x260?text=E-book\nSample"
             className="relative w-40"
             alt="default"
           />

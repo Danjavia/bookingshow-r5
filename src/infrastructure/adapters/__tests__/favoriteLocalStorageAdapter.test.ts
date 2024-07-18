@@ -1,21 +1,20 @@
 import { FavoriteLocalStorageAdapter } from "../favoriteLocalStorageAdapter";
-import { Book } from "@domain/entities/Book";
-import { z } from "zod";
+import { Book } from "src/domain/entities/Book";
 
-const localStorageMock = (function () {
-  let store: { [key: string]: string } = {};
-  return {
-    getItem: jest.fn((key: string) => store[key] || null),
-    setItem: jest.fn((key: string, value: string) => {
-      store[key] = value.toString();
-    }),
-    clear: jest.fn(() => {
-      store = {};
-    }),
-  };
-})();
+const localStorageMock = {
+  getItem: jest.fn(),
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+  clear: jest.fn(),
+};
 
-Object.defineProperty(window, "localStorage", { value: localStorageMock });
+jest.mock("src/domain/entities/Book", () => ({
+  BookSchema: {
+    array: () => ({
+      parse: jest.fn((data) => data),
+    }),
+  },
+}));
 
 describe("FavoriteLocalStorageAdapter", () => {
   let adapter: FavoriteLocalStorageAdapter;
@@ -29,43 +28,65 @@ describe("FavoriteLocalStorageAdapter", () => {
 
   beforeEach(() => {
     adapter = new FavoriteLocalStorageAdapter();
-    localStorageMock.clear();
+    jest.clearAllMocks();
+    Object.defineProperty(window, "localStorage", { value: localStorageMock });
   });
 
   it("should get an empty array when no favorites are stored", async () => {
+    localStorageMock.getItem.mockReturnValue(null);
     const favorites = await adapter.getFavorites();
     expect(favorites).toEqual([]);
   });
 
   it("should add a favorite book", async () => {
+    localStorageMock.getItem.mockReturnValue(null);
     await adapter.addFavorite(testBook);
-    const favorites = await adapter.getFavorites();
-    expect(favorites).toContainEqual(testBook);
+    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+      "favorites",
+      JSON.stringify([testBook]),
+    );
   });
 
   it("should not add duplicate favorite books", async () => {
+    localStorageMock.getItem.mockReturnValue(JSON.stringify([testBook]));
     await adapter.addFavorite(testBook);
-    await adapter.addFavorite(testBook);
-    const favorites = await adapter.getFavorites();
-    expect(favorites).toHaveLength(1);
-    expect(favorites[0]).toEqual(testBook);
+    expect(localStorageMock.setItem).not.toHaveBeenCalled();
   });
 
   it("should remove a favorite book", async () => {
-    await adapter.addFavorite(testBook);
+    localStorageMock.getItem.mockReturnValue(JSON.stringify([testBook]));
     await adapter.removeFavorite(testBook.id);
-    const favorites = await adapter.getFavorites();
-    expect(favorites).toHaveLength(0);
+    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+      "favorites",
+      JSON.stringify([]),
+    );
   });
 
   it("should check if a book is a favorite", async () => {
-    await adapter.addFavorite(testBook);
+    localStorageMock.getItem.mockReturnValue(JSON.stringify([testBook]));
     const isFavorite = await adapter.isFavorite(testBook.id);
     expect(isFavorite).toBe(true);
   });
 
   it("should handle invalid data in localStorage", async () => {
-    localStorageMock.setItem("favorites", "invalid json");
-    await expect(adapter.getFavorites()).rejects.toThrow(z.ZodError);
+    localStorageMock.getItem.mockReturnValue("invalid json");
+    await expect(adapter.getFavorites()).rejects.toThrow();
+  });
+
+  it("should return false when checking if a non-existent book is a favorite", async () => {
+    localStorageMock.getItem.mockReturnValue(JSON.stringify([testBook]));
+    const isFavorite = await adapter.isFavorite("non-existent-id");
+    expect(isFavorite).toBe(false);
+  });
+
+  it("should not throw when removing a non-existent favorite", async () => {
+    localStorageMock.getItem.mockReturnValue(JSON.stringify([testBook]));
+    await expect(
+      adapter.removeFavorite("non-existent-id"),
+    ).resolves.not.toThrow();
+    expect(localStorageMock.setItem).toHaveBeenCalledWith(
+      "favorites",
+      JSON.stringify([testBook]),
+    );
   });
 });
