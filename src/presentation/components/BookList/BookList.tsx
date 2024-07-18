@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Book as BookType } from "@domain/entities/Book";
 import Book from "@presentation/components/Book/Book";
-import { BookState, useBookStore } from "@application/store/bookStore";
+import { useBookStore } from "@application/store/bookStore";
 
 interface BooksProps {
   books: BookType[];
@@ -9,7 +9,7 @@ interface BooksProps {
 }
 
 const BookList: React.FC<BooksProps> = ({ books, onSelectBook }) => {
-  const selectBook = useBookStore((state: BookState) => state.selectBook);
+  const { selectBook } = useBookStore();
 
   return (
     <div className="book-list container max-w-screen-xl mx-auto">

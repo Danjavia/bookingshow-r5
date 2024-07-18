@@ -21,6 +21,7 @@ export class GoogleBooksAdapter implements BookRepositoryPort {
   }
   async getBookById(id: string): Promise<Book> {
     const response = await axios.get(`${this.API_URL}/${id}`);
+    console.log("Response ==>", response);
     return BookSchema.parse({
       id: response.data.id,
       title: response.data.volumeInfo.title,

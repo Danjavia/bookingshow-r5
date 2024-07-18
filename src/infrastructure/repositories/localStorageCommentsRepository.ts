@@ -1,5 +1,5 @@
-import { LocalStorageAdapter } from "@infrastructure/adapters/localStorageAdapter";
+import { CommentLocalStorageAdapter } from "@infrastructure/adapters/commentLocalStorageAdapter";
 import { CommentRepositoryPort } from "@domain/ports/CommentRepositoryPort";
 
 export const commentRepository: CommentRepositoryPort =
-  new LocalStorageAdapter();
+  new CommentLocalStorageAdapter();
