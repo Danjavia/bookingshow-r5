@@ -8,14 +8,3 @@ export const CommentSchema = z.object({
 });
 
 export type Comment = z.infer<typeof CommentSchema>;
-
-export class CommentEntity implements Comment {
-  constructor(
-    public id: string,
-    public bookId: string,
-    public text: string,
-    public createdAt: Date = new Date(),
-  ) {
-    CommentSchema.parse(this);
-  }
-}

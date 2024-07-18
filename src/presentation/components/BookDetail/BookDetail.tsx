@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 
 const BookDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const [isOnFavorite, setIsOnFavorite] = React.useState(false);
 
   const {
     addToFavorites,
