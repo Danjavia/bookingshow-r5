@@ -56,7 +56,7 @@ El proyecto sigue una arquitectura hexagonal (también conocida como puertos y a
 ## Requisitos Previos
 
 - Node.js v
-- npm v7.x.x (incluido con Node.js 18.20.3)
+- npm v10.x.x (incluido con Node.js 18.20.4 - lts/hydrogen)
 
 ## Estructura Propuesta del Proyecto
 
