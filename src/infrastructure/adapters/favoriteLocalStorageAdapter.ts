@@ -1,5 +1,5 @@
-import { FavoriteRepositoryPort } from "@domain/ports/FavoriteRepositoryPort";
-import { Book, BookSchema } from "@domain/entities/Book";
+import { FavoriteRepositoryPort } from "src/domain/ports/FavoriteRepositoryPort";
+import { Book, BookSchema } from "src/domain/entities/Book";
 
 export class FavoriteLocalStorageAdapter implements FavoriteRepositoryPort {
   private readonly FAVORITES_KEY = "favorites";

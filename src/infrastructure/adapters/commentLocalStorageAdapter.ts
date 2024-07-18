@@ -1,5 +1,5 @@
-import { CommentRepositoryPort } from "@domain/ports/CommentRepositoryPort";
-import { Comment, CommentSchema } from "@domain/entities/Comment";
+import { CommentRepositoryPort } from "src/domain/ports/CommentRepositoryPort";
+import { Comment, CommentSchema } from "src/domain/entities/Comment";
 
 export class CommentLocalStorageAdapter implements CommentRepositoryPort {
   private readonly COMMENTS_KEY = "comments";

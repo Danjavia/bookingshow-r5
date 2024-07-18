@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BookRepositoryPort } from "@domain/ports/BookRepositoryPort";
-import { Book, BookSchema } from "@domain/entities/Book";
+import { BookRepositoryPort } from "src/domain/ports/BookRepositoryPort";
+import { Book, BookSchema } from "src/domain/entities/Book";
 
 export class OpenLibraryAdapter implements BookRepositoryPort {
   private readonly SEARCH_API_URL = "https://openlibrary.org/search.json";
